@@ -45,7 +45,7 @@ public class CheckerTest {
             Set<String> dictionary = getDictionary();
             List<String> words = wordsToCheck();
             List<String> misspelled = Checker.findMisspelledWords(dictionary, words);
-            Map<String, Set<String>> corrections = Checker.possibleCorrections(dictionary, misspelled);
+            Map<String, Set<String>> corrections = Checker.possibleCorrections(dictionary, misspelled, 1);
             assertNotNull(corrections);
             assertTrue(!corrections.isEmpty());
             assertTrue(corrections.containsKey(MISSPELLED));

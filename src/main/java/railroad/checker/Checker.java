@@ -17,10 +17,8 @@ public class Checker {
 
     private static final Logger logger = LoggerFactory.getLogger(Checker.class);
 
-    private static final int LEVENSHTEIN_THRESHOLD = 1;
-
-    public static final String THRESHOLD_OPTION = "threshold";
-    public static final String DICT_OPTION = "dict";
+    private static final String THRESHOLD_OPTION = "threshold";
+    private static final String DICT_OPTION = "dict";
 
     public static void main(String[] args) {
         Options options = new Options();
@@ -69,7 +67,7 @@ public class Checker {
                     System.exit(1 );
                 }
                 List<String> errors = findMisspelledWords( dict, checkMe );
-                Map<String,Set<String>> myFixes = possibleCorrections( dict, errors );
+                Map<String,Set<String>> myFixes = possibleCorrections( dict, errors, threshold );
                 fixes.putAll( myFixes );
             }
             Gson gson = new Gson();
@@ -125,13 +123,13 @@ public class Checker {
     }
 
 
-    protected static Map<String, Set<String>> possibleCorrections(Set<String> dictionary, List<String> problems) {
+    protected static Map<String, Set<String>> possibleCorrections(Set<String> dictionary, List<String> problems, final int threshold) {
         Map<String, Set<String>> corrections = new HashMap<>();
         LevenshteinDistance distance = new LevenshteinDistance();
         for (String problem : problems) {
             Set<String> possibilities = new HashSet<>();
             for (String word : dictionary) {
-                if (distance.apply(word, problem) <= LEVENSHTEIN_THRESHOLD) {
+                if (distance.apply(word, problem) <= threshold) {
                     possibilities.add(word);
                 }
             }
