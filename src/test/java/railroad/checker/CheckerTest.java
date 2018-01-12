@@ -18,7 +18,7 @@ public class CheckerTest {
     private static final String TEST_FILENAME = "./test.txt";
     private static final String DICTIONARY = "./US.dic";
     private static final String MISSPELLED = "cherker";
-    private static final String CORRECTED = "checked";
+    private static final String CORRECTED = "checker";
 
     @BeforeClass
     public static void init() {
